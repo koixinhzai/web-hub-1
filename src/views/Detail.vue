@@ -99,7 +99,7 @@ const viewerOptions = {
         <!-- Main column -->
         <div class="detail-main">
           <section class="panel info-panel">
-            <h1 class="spa-title">{{ spa.name.toUpperCase() }}, {{ spa.badges.independent ? 'INDEPENDENT' : 'SPA' }}</h1>
+            <h1 class="spa-title">{{ spa.name.toUpperCase() }}</h1>
             <div class="last-seen">Last seen online: today</div>
             <p class="bio">{{ spa.bio }}</p>
 
