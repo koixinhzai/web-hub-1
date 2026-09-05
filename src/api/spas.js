@@ -41,7 +41,7 @@ function mapSummary(b) {
     country: b.country,
     badges: toBadgeObject(b.badges),
     categories: (b.categories || []).map((c) => c.slug),
-    primaryImage: b.images && b.images.length ? { url: resolveImageUrl(b.images[0]) } : null,
+    heroImage: resolveImageUrl(b.heroImage || (b.images && b.images[0])),
   }
 }
 

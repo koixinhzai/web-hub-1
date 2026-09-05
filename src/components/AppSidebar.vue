@@ -3,15 +3,13 @@ import { ref } from 'vue'
 import { listCountries } from '../api/countries'
 
 const europe = ref([])
-const worldwide = ref([])
 listCountries()
   .then((data) => {
     europe.value = data.europe
-    worldwide.value = data.worldwide
   })
   .catch(() => {})
 
-const openSections = ref({ europe: true, worldwide: false })
+const openSections = ref({ europe: true })
 
 function toggle(section) {
   openSections.value[section] = !openSections.value[section]
@@ -27,23 +25,6 @@ function toggle(section) {
 
     <div class="sidebar-heading">EUROPE</div>
     <div class="country-row" v-for="c in europe" :key="c.name">
-      <!-- <button class="country-toggle">+</button> -->
-      <img
-        class="country-flag"
-        :src="`https://flagcdn.com/24x18/${c.code}.png`"
-        :srcset="`https://flagcdn.com/48x36/${c.code}.png 2x`"
-        :alt="c.name"
-        :title="c.name"
-        width="24"
-        height="18"
-        loading="lazy"
-      />
-      <a href="#" class="country-name">{{ c.name }}</a>
-      <span class="country-count">({{ c.count }})</span>
-    </div>
-
-    <div class="sidebar-heading">WORLDWIDE</div>
-    <div class="country-row" v-for="c in worldwide" :key="c.name">
       <!-- <button class="country-toggle">+</button> -->
       <img
         class="country-flag"

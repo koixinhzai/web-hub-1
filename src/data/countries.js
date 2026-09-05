@@ -28,25 +28,3 @@ export const europe = [
   { name: 'Ukraine', code: 'ua', flag: '🇺🇦', count: 234 },
   { name: 'United Kingdom', code: 'gb', flag: '🇬🇧', count: 1466 },
 ]
-
-export const worldwide = [
-  { name: 'Australia', code: 'au', flag: '🇦🇺', count: 230 },
-  { name: 'Brazil', code: 'br', flag: '🇧🇷', count: 337 },
-  { name: 'Canada', code: 'ca', flag: '🇨🇦', count: 365 },
-  { name: 'China', code: 'cn', flag: '🇨🇳', count: 322 },
-  { name: 'Egypt', code: 'eg', flag: '🇪🇬', count: 211 },
-  { name: 'India', code: 'in', flag: '🇮🇳', count: 300 },
-  { name: 'Indonesia', code: 'id', flag: '🇮🇩', count: 240 },
-  { name: 'Japan', code: 'jp', flag: '🇯🇵', count: 209 },
-  { name: 'Malaysia', code: 'my', flag: '🇲🇾', count: 281 },
-  { name: 'Mexico', code: 'mx', flag: '🇲🇽', count: 250 },
-  { name: 'Philippines', code: 'ph', flag: '🇵🇭', count: 222 },
-  { name: 'Singapore', code: 'sg', flag: '🇸🇬', count: 133 },
-  { name: 'South Africa', code: 'za', flag: '🇿🇦', count: 165 },
-  { name: 'South Korea', code: 'kr', flag: '🇰🇷', count: 202 },
-  { name: 'Thailand', code: 'th', flag: '🇹🇭', count: 474 },
-  { name: 'Turkey', code: 'tr', flag: '🇹🇷', count: 245 },
-  { name: 'UAE', code: 'ae', flag: '🇦🇪', count: 466 },
-  { name: 'USA', code: 'us', flag: '🇺🇸', count: 980 },
-  { name: 'Vietnam', code: 'vn', flag: '🇻🇳', count: 210 },
-]

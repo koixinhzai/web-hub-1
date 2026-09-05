@@ -5,7 +5,7 @@
 // AppSidebar hiển thị đúng như cũ, nhưng tính lại `count` real-time bằng
 // cách đếm business của site1 theo field `country`.
 import { apiFetch, adminDeprecated } from './client'
-import { europe as staticEurope, worldwide as staticWorldwide } from '../data/countries'
+import { europe as staticEurope } from '../data/countries'
 
 const SITE_CODE = 'site1'
 
@@ -27,7 +27,6 @@ export async function listCountries() {
   const counts = await countBusinessesByCountry()
   return {
     europe: withLiveCounts(staticEurope, counts),
-    worldwide: withLiveCounts(staticWorldwide, counts),
   }
 }
 
