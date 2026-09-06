@@ -62,6 +62,7 @@ function mapDetail(b) {
     badges: toBadgeObject(b.badges),
     categories: (b.categories || []).map((c) => c.slug),
     images: (b.images || []).map((img) => ({ id: img.id, url: resolveImageUrl(img.url), isPrimary: img.isPrimary })),
+    videos: (b.videos || []).map((v) => ({ id: v.id, url: resolveImageUrl(v.url) })),
     // Bảng thông tin tự do (Gender, Experience, Specialty, ...) nhập trong
     // admin -- Detail.vue đọc thẳng nhãn + giá trị từ đây thay vì hardcode
     // từng label, nên admin đổi/thêm/xoá dòng nào cũng tự hiển thị đúng.

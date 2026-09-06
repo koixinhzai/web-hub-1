@@ -94,6 +94,16 @@ const viewerOptions = {
               </div>
             </template>
           </div>
+
+          <div class="gallery-videos" v-if="spa.videos && spa.videos.length">
+            <video
+              v-for="vid in spa.videos"
+              :key="vid.id"
+              :src="vid.url"
+              controls
+              preload="metadata"
+            ></video>
+          </div>
         </div>
 
         <!-- Main column -->
@@ -270,6 +280,20 @@ const viewerOptions = {
   border-radius: 4px;
   overflow: hidden;
   border: 1px solid var(--border);
+}
+
+.gallery-videos {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.gallery-videos video {
+  width: 100%;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  background: #000;
 }
 
 .detail-main {
