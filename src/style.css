@@ -183,6 +183,15 @@ img {
   align-items: start;
 }
 
+/* Grid items default to min-width: auto, which resolves to their content's
+   min-content size -- without this override, wide unshrinkable content
+   inside <main> (e.g. AutoSlider's doubled-up track) forces the `1fr`
+   column to grow to fit it instead of clipping, which in turn changes
+   AutoSlider's measured width and feeds back into an ever-growing loop. */
+.layout main {
+  min-width: 0;
+}
+
 @media (max-width: 900px) {
   .layout {
     grid-template-columns: 1fr;

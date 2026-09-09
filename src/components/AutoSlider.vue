@@ -37,10 +37,18 @@ let rafId = null
 let lastTime = null
 let offset = 0
 
+// Clamped defensively -- the wrapper's own width should never actually
+// exceed the viewport (min-width: 0 on the grid item in style.css keeps the
+// doubled-up track from forcing it wider), but if that ever regresses in
+// some other layout context, an unclamped feedback loop (wrapper grows ->
+// item width grows -> track grows -> wrapper grows...) runs away to the
+// browser's internal max layout size instead of just looking wrong.
+const MAX_ITEM_WIDTH = 600
+
 function measure() {
   if (!wrapperEl.value) return
   const available = wrapperEl.value.clientWidth - GAP * (props.visibleCount - 1)
-  itemWidth.value = Math.max(0, available / props.visibleCount)
+  itemWidth.value = Math.min(MAX_ITEM_WIDTH, Math.max(0, available / props.visibleCount))
 }
 
 function step(now) {
@@ -103,6 +111,7 @@ onBeforeUnmount(() => {
 <style scoped>
 .auto-slider {
   width: 100%;
+  min-width: 0;
   overflow: hidden;
   margin-bottom: 18px;
   border-radius: 4px;
