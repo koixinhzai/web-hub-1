@@ -1,10 +1,12 @@
 <script setup>
 // Auto-playing "photo gallery" slider: shows `visibleCount` services at a
 // time and continuously glides to the right, revealing more of `items` one
-// by one. The item list is rendered twice back-to-back and the scroll offset
-// wraps around after exactly one full list-width, so once the tail is
-// reached it rolls straight back into the same first item -- no jump cut,
-// no pause, the loop just keeps completing.
+// by one. Once `items` outgrows the visible strip, the list is rendered
+// twice back-to-back and the scroll offset wraps around after exactly one
+// full list-width, so once the tail is reached it rolls straight back into
+// the same first item -- no jump cut, no pause, the loop just keeps
+// completing. With `items` no longer than `visibleCount` there's nothing
+// left to reveal, so it just shows them once and holds still.
 import { ref, computed, onMounted, onBeforeUnmount, watch } from 'vue'
 import PlaceholderPhoto from './PlaceholderPhoto.vue'
 
@@ -27,10 +29,16 @@ const itemWidth = ref(0)
 const paused = ref(false)
 
 const slides = computed(() => props.items.slice(0, props.maxItems))
+// Only worth looping (and duplicating for the seamless wrap) once there's
+// more in the list than already fits in the visible strip -- duplicating a
+// shorter list just shows the same cards twice side by side instead of a
+// loop (e.g. 2 items in a 4-wide strip renders as "1,2,1,2" all visible at
+// once), and there's nothing left to auto-reveal anyway.
+const shouldLoop = computed(() => slides.value.length > props.visibleCount)
 // Duplicated so the track always has a second copy ready to slide into view
 // as the first copy scrolls out -- that second copy is what makes wrapping
 // the offset back to 0 look like a continuation instead of a reset.
-const loopSlides = computed(() => (slides.value.length ? [...slides.value, ...slides.value] : []))
+const loopSlides = computed(() => (shouldLoop.value ? [...slides.value, ...slides.value] : slides.value))
 
 let resizeObserver = null
 let rafId = null
@@ -56,11 +64,15 @@ function step(now) {
   const dt = (now - lastTime) / 1000
   lastTime = now
 
-  const setWidth = (itemWidth.value + GAP) * slides.value.length
-  if (!paused.value && setWidth > 0) {
-    offset += props.speed * dt
-    if (offset >= setWidth) offset -= setWidth // wraps back to the start, seamlessly
-    if (trackEl.value) trackEl.value.style.transform = `translateX(-${offset}px)`
+  if (shouldLoop.value) {
+    const setWidth = (itemWidth.value + GAP) * slides.value.length
+    if (!paused.value && setWidth > 0) {
+      offset += props.speed * dt
+      if (offset >= setWidth) offset -= setWidth // wraps back to the start, seamlessly
+      if (trackEl.value) trackEl.value.style.transform = `translateX(-${offset}px)`
+    }
+  } else if (trackEl.value) {
+    trackEl.value.style.transform = 'translateX(0)' // nothing to scroll to -- stay put
   }
   rafId = requestAnimationFrame(step)
 }

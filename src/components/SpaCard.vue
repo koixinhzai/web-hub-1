@@ -28,7 +28,7 @@ const props = defineProps({
     </div>
 
     <div class="spa-card-foot">
-      <span class="label">Spa in</span> <span class="value">{{ spa.city }}</span>
+      <span class="value">{{ spa.city }}</span>
     </div>
   </router-link>
 </template>
