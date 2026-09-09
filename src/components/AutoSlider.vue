@@ -110,6 +110,7 @@ onBeforeUnmount(() => {
         class="auto-slider-item"
         :style="{ width: itemWidth + 'px' }"
       >
+        <div class="ribbon-vip">SVIP</div>
         <PlaceholderPhoto :seed="spa.id" :src="spa.heroImage" />
         <div class="auto-slider-caption">
           <span class="name">{{ spa.name }}</span>
