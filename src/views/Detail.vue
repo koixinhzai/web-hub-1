@@ -62,11 +62,11 @@ const viewerOptions = {
 <template>
   <div class="page-body">
     <div class="container">
-      <p v-if="loading" class="not-found">Đang tải...</p>
+      <p v-if="loading" class="not-found">Loading...</p>
 
       <div v-else-if="notFound || !spa" class="not-found">
-        <p>Không tìm thấy hồ sơ này.</p>
-        <router-link to="/">← Quay về trang chủ</router-link>
+        <p>This profile could not be found.</p>
+        <router-link to="/">← Back to home</router-link>
       </div>
 
       <div v-else class="detail-grid">

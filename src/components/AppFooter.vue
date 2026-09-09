@@ -13,7 +13,7 @@ const links = [
         <a href="#" v-for="l in links" :key="l">{{ l }}</a>
       </div>
       <div class="footer-note">
-        © 2026 Spa Directory. Đây là trang minh hoạ giao diện, toàn bộ hồ sơ và thông tin liên hệ là dữ liệu giả lập.
+        © 2026 Spa Directory. This is a UI demo site — all profiles and contact details are simulated data.
       </div>
     </div>
   </footer>

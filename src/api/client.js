@@ -41,7 +41,7 @@ export class ApiError extends Error {
 // chỉ trả lỗi rõ ràng nếu lỡ còn ai mở admin cũ, thay vì crash im lặng.
 export function adminDeprecated() {
   throw new ApiError(
-    'Chức năng quản trị này đã chuyển sang trang admin mới (web_hub/admin), không còn hoạt động ở đây.',
+    'This admin feature has moved to the new admin site (web_hub/admin) and no longer works here.',
     410
   )
 }
@@ -71,7 +71,7 @@ export async function apiFetch(path, { method = 'GET', body, isForm = false, aut
   }
 
   if (!res.ok) {
-    throw new ApiError(data?.error || `Lỗi request (${res.status})`, res.status)
+    throw new ApiError(data?.error || `Request failed (${res.status})`, res.status)
   }
   return data
 }

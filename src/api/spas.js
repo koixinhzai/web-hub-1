@@ -42,6 +42,9 @@ function mapSummary(b) {
     badges: toBadgeObject(b.badges),
     categories: (b.categories || []).map((c) => c.slug),
     heroImage: resolveImageUrl(b.heroImage || (b.images && b.images[0])),
+    // Admin-set ranking (SVIP/VIP/VIP1/VIP2) -- Home.vue splits SVIP into the
+    // AutoSlider and keeps everything else in the regular card grid.
+    rankTier: b.rankTier,
   }
 }
 

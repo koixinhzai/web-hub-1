@@ -2,6 +2,7 @@
 import { ref, computed, watchEffect } from 'vue'
 import { useRoute } from 'vue-router'
 import AppSidebar from '../components/AppSidebar.vue'
+import AutoSlider from '../components/AutoSlider.vue'
 import FilterBar from '../components/FilterBar.vue'
 import SpaCard from '../components/SpaCard.vue'
 import { listSpas } from '../api/spas'
@@ -21,6 +22,11 @@ const spas = ref([])
 const loading = ref(true)
 const error = ref('')
 
+// SVIP-ranked services get pulled out into the AutoSlider up top; everything
+// else (VIP/VIP1/VIP2 or unranked) stays in the regular grid below it.
+const svipSpas = computed(() => spas.value.filter((s) => s.rankTier === 'SVIP'))
+const otherSpas = computed(() => spas.value.filter((s) => s.rankTier !== 'SVIP'))
+
 watchEffect(async () => {
   loading.value = true
   error.value = ''
@@ -28,7 +34,7 @@ watchEffect(async () => {
     const res = await listSpas({ category: activeSlug.value || undefined, pageSize: 100 })
     spas.value = res.data
   } catch (err) {
-    error.value = err.message || 'Không tải được danh sách.'
+    error.value = err.message || 'Could not load the list.'
   } finally {
     loading.value = false
   }
@@ -47,14 +53,15 @@ listCategories()
 
         <main>
           <h1 class="page-title">{{ (activeCategory.title || 'Home').toUpperCase() }}</h1>
+          <AutoSlider v-if="svipSpas.length" :items="svipSpas" />
           <FilterBar />
 
-          <p v-if="loading" class="empty-state">Đang tải...</p>
+          <p v-if="loading" class="empty-state">Loading...</p>
           <p v-else-if="error" class="empty-state">{{ error }}</p>
-          <div v-else-if="spas.length" class="card-grid">
-            <SpaCard v-for="spa in spas" :key="spa.id" :spa="spa" />
+          <div v-else-if="otherSpas.length" class="card-grid">
+            <SpaCard v-for="spa in otherSpas" :key="spa.id" :spa="spa" />
           </div>
-          <p v-else class="empty-state">Chưa có dữ liệu cho danh mục này.</p>
+          <p v-else-if="!spas.length" class="empty-state">No data available for this category yet.</p>
         </main>
       </div>
     </div>
